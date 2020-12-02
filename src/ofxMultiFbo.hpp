@@ -9,7 +9,7 @@
 #define ofxMultiFbo_hpp
 
 #include "ofMain.h"
-#include "ofxMultiBufferObjectUtils.hpp"
+#include "ofxMultiXboUtils.hpp"
 
 // Reference:
 // https://forum.openframeworks.cc/t/solved-custom-shader-and-multiple-render-targets/17930/2
@@ -23,8 +23,10 @@ public:
 	~ofxMultiFbo();
 
 	// Setup the multitexture
-	void setup(int _width, int _height, vector<GLenum> _glFormats, vector<ofColor> _initColors, bool _bPboSupport = false);
-	void setup(int _width, int _height, GLenum _glFormat, int _numBuffers, ofColor _initColor, bool _bPboSupport = false);
+	void setup(int _width, int _height, vector<GLenum> _glFormats, 
+		vector<ofColor> _initColors, bool _bPboSupport = false);
+	void setup(int _width, int _height, GLenum _glFormat, 
+		int _numBuffers, ofColor _initColor, bool _bPboSupport = false);
 
 	bool isAllocated() { return bAllocated; }
 

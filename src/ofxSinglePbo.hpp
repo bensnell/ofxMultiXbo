@@ -8,7 +8,6 @@
 #define ofxSinglePbo_hpp
 
 #include "ofMain.h"
-#include "ofxRemoteUIServer.h"
 
 // Pixel buffer objects allow information to be read from the GPU to the CPU.
 // This object performs the same function as myFbo.readToPixels(myPixels),

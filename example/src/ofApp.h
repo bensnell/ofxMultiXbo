@@ -1,10 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "CustomApp.h"
+#include "ofxMultiXbo.hpp"
 
-
-class ofApp : public CustomApp{
+class ofApp : public ofBaseApp {
 
 public:
 	void setup();
@@ -21,17 +20,9 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-
-	// APP CALLBACKS ////////////////////////////////////////
-
-	void setupChanged(ofxScreenSetup::ScreenSetupArg &arg);
-	void remoteUIClientDidSomething(RemoteUIServerCallBackArg & arg);
+	ofxMultiFbo fbo;
 
 
-	// APP SETUP ////////////////////////////////////////////
-	float p1;
-
-	ofFbo fbo;
 
 
 };

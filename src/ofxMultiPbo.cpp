@@ -17,9 +17,9 @@ ofxMultiPbo::~ofxMultiPbo() {
 }
 
 // -------------------------------------------------
-void ofxMultiPbo::setup(MultiFbo* _mf) {
+void ofxMultiPbo::setup(ofxMultiFbo* _mf) {
 	if (!_mf->isAllocated()) {
-		ofLogError("ofxMultiPbo") << "MultiFbo is not allocated. Not allocating ofxMultiPbo";
+		ofLogError("ofxMultiPbo") << "ofxMultiFbo is not allocated. Not allocating ofxMultiPbo";
 		return;
 	}
 	bool allMfRGBA = true;
@@ -27,11 +27,11 @@ void ofxMultiPbo::setup(MultiFbo* _mf) {
 		allMfRGBA &= (_mf->getGlFormat(i) == GL_RGBA);
 	}
 	if (!allMfRGBA) {
-		ofLogError("ofxMultiPbo") << "All MultiFbo glFormats must be GL_RGBA";
+		ofLogError("ofxMultiPbo") << "All ofxMultiFbo glFormats must be GL_RGBA";
 		return;
 	}
 	if (!_mf->hasPboSupport()) {
-		ofLogError("ofxMultiPbo") << "MultiFbo must have Pbo support";
+		ofLogError("ofxMultiPbo") << "ofxMultiFbo must have Pbo support";
 		return;
 	}
 

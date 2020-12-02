@@ -18,7 +18,8 @@ ofxMultiFbo::~ofxMultiFbo() {
 }
 
 // -------------------------------------------------
-void ofxMultiFbo::setup(int _width, int _height, vector<GLenum> _glFormats, vector<ofColor> _initColors, bool _bPboSupport) {
+void ofxMultiFbo::setup(int _width, int _height, vector<GLenum> _glFormats, 
+	vector<ofColor> _initColors, bool _bPboSupport) {
 	if (_glFormats.size() >= 8 || _initColors.size() >= 8) {
 		ofLogError("ofxMultiFbo") << "Cannot create a ofxMultiFbo with this many buffers";
 		return;

@@ -8,7 +8,7 @@
 #define ofxMultiPbo_hpp
 
 #include "ofMain.h"
-#include "ofxMultiBufferObjectsUtils.hpp"
+#include "ofxMultiXboUtils.hpp"
 #include "ofxSinglePbo.hpp"
 #include "ofxMultiFbo.hpp"
 // #include "ofPBO.h" // ?
@@ -25,7 +25,7 @@ public:
 	ofxMultiPbo();
 	~ofxMultiPbo();
 
-	void setup(MultiFbo* _mf);
+	void setup(ofxMultiFbo* _mf);
 
 	bool isValid() { return bValid; }
 
@@ -39,7 +39,7 @@ private:
 
 	bool bValid = false;
 
-	MultiFbo* mf = NULL;
+	ofxMultiFbo* mf = NULL;
 
 	// Option 1
 	vector<ofxSinglePbo*> pbos;
