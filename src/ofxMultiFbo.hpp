@@ -14,46 +14,65 @@
 // Reference:
 // https://forum.openframeworks.cc/t/solved-custom-shader-and-multiple-render-targets/17930/2
 
-// This fbo is an easy handler for multi-buffer fbos 
-// It makes shader usage easier
+// This fbo is an easy handler for multi-buffer fbos.
+// It makes shader usage easier.
+// Note: All buffers must be the same size, but they can be different types.
 class ofxMultiFbo { 
 public:
 
 	ofxMultiFbo();
 	~ofxMultiFbo();
 
-	// Setup the multitexture
-	void setup(int _width, int _height, vector<GLenum> _glFormats, 
+	// Allocate the multitexture
+	void allocate(int __width, int __height, vector<GLenum> _glFormats, 
 		vector<ofColor> _initColors, bool _bPboSupport = false);
-	void setup(int _width, int _height, GLenum _glFormat, 
+	void allocate(int __width, int __height, GLenum _glFormat,
 		int _numBuffers, ofColor _initColor, bool _bPboSupport = false);
-
 	bool isAllocated() { return bAllocated; }
 
-	// Begin utility fbo
-	void begin() {
-		utility->begin();
-		utility->activateAllDrawBuffers();
-	}
+	// Helper methods
+	int size() { return getNumBuffers(); }
+	bool hasPboSupport() { return bPboSupport; }
+	int width() { return _width; }
+	int height() { return _height; }
+	GLenum getGlFormat(int index) { return glFormats[index]; }
+
+	// Begin utility fbo (bind to all buffers)
+	bool begin();
+
+	// End binding to all buffers within the fbo, then swap internal buffers (by default)
+	bool end(bool swapBuffers = true);
 
 	// Get data texture (pass this to shader)
-	ofTexture& getTex(int index = 0) {
-		return data->getTexture(index);
+	ofTexture& getTex(int index = 0);
+
+	// Get PBO info
+	ofTexture* getPboTexture(int index = 0) {
+		return bPboSupport ? pboTextures[index] : NULL;
+	}
+	ofBufferObject* getPboBuffer(int index = 0) {
+		return bPboSupport ? pboBuffers[index] : NULL;
 	}
 
-	// End utility fbo
-	void end() {
-		utility->end();
+	// ===================================
+	// ======== ADVANCED METHODS =========
+	// ===================================
 
-		//ofFbo* tmp = data;
-		//data = utility;
-		//utility = tmp;
-		swap(data, utility);
-		updatePboTextures();
-	}
+	// Begin drawing to a specific buffer within the fbo (advanced usage only)
+	bool begin(int index);
+	
+	// End drawing to a specific buffer object.
+	// Note: You need to manually swap buffers by caling swap()
+	bool end(int index);
+	
+	// Manually swap buffers.
+	// Note: Advanced usage already, since this is 
+	void swap();
 
-
-	// Other methods (not as useful):
+	
+	// ===================================
+	// ========= HELPER METHODS ==========
+	// ===================================
 
 	// Get the fbo for the most recent data
 	ofFbo* getDataFbo() {
@@ -66,19 +85,10 @@ public:
 	int getNumBuffers() {
 		return glFormats.size();
 	}
-	GLenum getGlFormat(int index) {
-		return glFormats[index];
+	bool validBufferIndex(int index)
+	{
+		return index >= 0 && index < getNumBuffers();
 	}
-	int getWidth() { return width; }
-	int getHeight() { return height; }
-
-	ofTexture* getPboTexture(int index = 0) {
-		return bPboSupport ? pboTextures[index] : NULL;
-	}
-	ofBufferObject* getPboBuffer(int index = 0) {
-		return bPboSupport ? pboBuffers[index] : NULL;
-	}
-	bool hasPboSupport() { return bPboSupport; }
 
 private:
 
@@ -86,12 +96,16 @@ private:
 
 	ofFbo* data;
 	ofFbo* utility;
-
+	
+	set<int> activeUtilityBuffers;
+	bool isUtilityBufferActive(int index);
+	bool isUtilityBufferActive();
+	
 	ofFbo A;
 	ofFbo B;
 
-	int width;
-	int height;
+	int _width;
+	int _height;
 
 	bool bAllocated = false;
 

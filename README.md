@@ -13,9 +13,7 @@ Utilities for Manipulating Multiple <u>X</u> Buffer Objects (<u>F</u>BOs and <u>
 
 ## Project Details
 
-
-
-
+There is no object called `ofxMultiXbo`. Rather, it represents the collection of other buffer objects, which are individually described in detail below:
 
 ### ofxMultiFbo
 
@@ -23,9 +21,13 @@ This is a helper class for handling frame buffer objects (FBOs) with multiple te
 
 Internally, it contains two FBOs for every one allocated. These two FBOs are used to ping pong textures back and forth, so that one can be written to (the utility FBO) while the other is read from (the data FBO). Between `fbo.begin()` and `fbo.end()` calls, the texture `fbo.getTex(i)` contains the last rendered texture (this is analogous to `fbo.getDataFbo()`). After the call to `fbo.end()`, textures are swapped and `fbo.getTex(i)` contains the just-rendered texture (this is analogous to `fbo.getDataFbo()`). 
 
+*Note: This object is limited to 8 attached buffer objects on a single ofxMultiFbo instance.*
+
 An example of usage includes:
 
-*main.cpp* (Needs to be set up like this)
+***main.cpp*** 
+
+*Note: Your main.cpp file needs to be set up like this, enabling support for GL version 3.2*
 
 ```c++
 int main() {
@@ -43,28 +45,30 @@ int main() {
 }
 ```
 
-*ofApp.h*
+***ofApp.h***
 
 ```c++
-ofxMultiFbo fbo;
-ofShader shader;
+class ofApp : public ofBaseApp {
+    ofxMultiFbo fbo;
+	ofShader shader;
+}
 ```
 
-*ofApp.cpp*
+***ofApp.cpp***
 
 ```c++
-Setup() {
+ofApp::Setup() {
 	
     // Allocate a frame buffer consisting of two RGBA textures 
 	// at 100 x 100 pixels initialized with the color white
 	// and without PBO support.
-	fbo.setup(100, 100, GL_RGBA, 2, ofColor(255), false);
+	fbo.allocate(100, 100, GL_RGBA, 2, ofColor(255), false);
 
 	// Load Shader
 	shader.load("shaders/myShader");
 }
 
-Update() {
+ofApp::Update() {
     
     // Run the shader and save its two outputs to the two texture
     // targets in fbo
@@ -78,15 +82,17 @@ Update() {
 	fbo.end();
 }
 
-Draw() {
+ofApp::Draw() {
     
     // Draw the two just-rendered textures.
-    fbo.getTex(0)->draw(0,0,100,100);
-    fbo.getTex(1)->draw(100,0,100,100);
+    fbo.getTex(0).draw(0,0,100,100);
+    fbo.getTex(1).draw(100,0,100,100);
 }
 ```
 
-*myShader.frag* (Must have these headers)
+***myShader.frag*** 
+
+*Note: Your fragment shader must have this header to specify its version and a numberof extensions required for operation. Every texture generated within ofxMultiFbo will be accessible in order as an output. The name `outTex0` can be user-specified within the shader.* 
 
 ```c
 #version 150
@@ -105,7 +111,9 @@ void main() {
 }
 ```
 
-*myShader.vert*
+***myShader.vert***
+
+*Note: You must also include the header version in the vertex shader.*
 
 ```c
 #version 150
@@ -124,8 +132,9 @@ void main()
 }
 ```
 
+### ofxMultiPbo
 
-
+xxx
 
 #### Resources
 
@@ -133,7 +142,7 @@ xxx
 
 #### Dependencies & Frameworks
 
-xxx
+- OpenGL Version 3.2
 
 ## Installation
 
@@ -151,13 +160,13 @@ xxx
 
 ### TODO:
 
-- [ ] How to load data into fbo
+- [x] How to load data into fbo
 
-- [ ] How to draw into fbo
+- [x] How to draw into fbo
 
-- [ ] How to use with shaders -- what shader settings to use, etc.
+- [x] How to use with shaders -- what shader settings to use, etc.
 
-- [ ] How to retrieve data from fbo (pbo)
+- [x] How to retrieve data from fbo (pbo)
 
 - [ ] Package a shader into the fbo (multiShader?)?
 

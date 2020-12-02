@@ -21,8 +21,6 @@ public:
 	void gotMessage(ofMessage msg);
 
 	ofxMultiFbo fbo;
-
-
-
-
+	ofShader shader;
+	
 };

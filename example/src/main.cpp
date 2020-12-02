@@ -9,7 +9,7 @@ int main( ){
 	ofGLFWWindowSettings winSettings;
 	winSettings.setGLVersion(3, 2);
 	winSettings.numSamples = 8;
-	winSettings.setSize(1920, 1080);
+	winSettings.setSize(800, 600);
 
 	shared_ptr<ofAppBaseWindow> win = ofCreateWindow(winSettings);	// sets up the opengl context!
 	((ofAppGLFWWindow*)win.get())->setMultiDisplayFullscreen(true);
