@@ -1,8 +1,7 @@
 //
 //  AppUtils.cpp
-//  g5_002
 //
-//  Created by Ben Snell on 1/17/19.
+//  Created by Ben Snell on 12/2/20.
 //
 
 #include "ofxMultiXboUtils.hpp"

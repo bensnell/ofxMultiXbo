@@ -1,8 +1,7 @@
 //
 //  ofxMultiFbo.cpp
-//  g5_002
 //
-//  Created by Ben Snell on 1/17/19.
+//  Created by Ben Snell on 12/2/20.
 //
 
 #include "ofxMultiFbo.hpp"
@@ -18,11 +17,11 @@ ofxMultiFbo::~ofxMultiFbo() {
 }
 
 // -------------------------------------------------
-void ofxMultiFbo::allocate(int __width, int __height, vector<GLenum> _glFormats,
+bool ofxMultiFbo::allocate(int __width, int __height, vector<GLenum> _glFormats,
 	vector<ofColor> _initColors, bool _bPboSupport) {
 	if (_glFormats.size() >= 8 || _initColors.size() >= 8) {
 		ofLogError("ofxMultiFbo") << "Cannot create a ofxMultiFbo with this many buffers";
-		return;
+		return false;
 	}
 	if (_initColors.size() < _glFormats.size()) {
 		ofLogNotice("ofxMultiFbo") << "Resizing the color buffers";
@@ -92,16 +91,18 @@ void ofxMultiFbo::allocate(int __width, int __height, vector<GLenum> _glFormats,
 	updatePboTextures();
 
 	bAllocated = true;
+	
+	return true;
 }
 
 // -------------------------------------------------
-void ofxMultiFbo::allocate(int __width, int __height, GLenum _glFormat, int _numBuffers, ofColor _initColor, bool _bPboSupport) {
+bool ofxMultiFbo::allocate(int __width, int __height, GLenum _glFormat, int _numBuffers, ofColor _initColor, bool _bPboSupport) {
 
 	vector<GLenum> _glFormats;
 	_glFormats.resize(_numBuffers, _glFormat);
 	vector<ofColor> _initColors;
 	_initColors.resize(_numBuffers, _initColor);
-	allocate(__width, __height, _glFormats, _initColors, _bPboSupport);
+	return allocate(__width, __height, _glFormats, _initColors, _bPboSupport);
 }
 
 // -------------------------------------------------

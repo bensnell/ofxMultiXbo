@@ -1,8 +1,7 @@
 //
 //  ofxMultiFbo.hpp
-//  g5_002
 //
-//  Created by Ben Snell on 1/17/19.
+//  Created by Ben Snell on 12/2/20.
 //
 
 #ifndef ofxMultiFbo_hpp
@@ -24,9 +23,9 @@ public:
 	~ofxMultiFbo();
 
 	// Allocate the multitexture
-	void allocate(int __width, int __height, vector<GLenum> _glFormats, 
+	bool allocate(int __width, int __height, vector<GLenum> _glFormats, 
 		vector<ofColor> _initColors, bool _bPboSupport = false);
-	void allocate(int __width, int __height, GLenum _glFormat,
+	bool allocate(int __width, int __height, GLenum _glFormat,
 		int _numBuffers, ofColor _initColor, bool _bPboSupport = false);
 	bool isAllocated() { return bAllocated; }
 

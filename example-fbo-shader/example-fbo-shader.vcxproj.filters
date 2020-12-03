@@ -16,6 +16,9 @@
 		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFbo.cpp">
 			<Filter>local_addons\ofxMultiXbo\src</Filter>
 		</ClCompile>
+		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFboShader.cpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClCompile>
 		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiPbo.cpp">
 			<Filter>local_addons\ofxMultiXbo\src</Filter>
 		</ClCompile>
@@ -51,6 +54,9 @@
 			<Filter>src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFbo.hpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFboShader.hpp">
 			<Filter>local_addons\ofxMultiXbo\src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiPbo.hpp">

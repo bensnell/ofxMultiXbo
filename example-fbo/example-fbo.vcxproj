@@ -26,7 +26,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>example</RootNamespace>
+    <RootNamespace>example-fbo</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -183,6 +183,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFbo.cpp" />
+    <ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFboShader.cpp" />
     <ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiPbo.cpp" />
     <ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXbo.cpp" />
     <ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXboUtils.cpp" />
@@ -191,6 +192,7 @@
   <ItemGroup>
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFbo.hpp" />
+    <ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFboShader.hpp" />
     <ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiPbo.hpp" />
     <ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXbo.hpp" />
     <ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXboUtils.hpp" />

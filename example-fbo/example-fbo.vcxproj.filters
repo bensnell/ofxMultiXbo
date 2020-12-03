@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFbo.cpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFboShader.cpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiPbo.cpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXbo.cpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXboUtils.cpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxSinglePbo.cpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="local_addons">
+			<UniqueIdentifier>{DE6745C7-E99D-D8E0-F77D-C032}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="local_addons\ofxMultiXbo">
+			<UniqueIdentifier>{CAA5C406-7463-4775-A5D0-F7D9}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="local_addons\ofxMultiXbo\src">
+			<UniqueIdentifier>{6887018C-84B8-53D0-0474-530E}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFbo.hpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiFboShader.hpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiPbo.hpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXbo.hpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxMultiXboUtils.hpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\ExternalAddons\ofxMultiXbo\src\ofxSinglePbo.hpp">
+			<Filter>local_addons\ofxMultiXbo\src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
+</Project>
