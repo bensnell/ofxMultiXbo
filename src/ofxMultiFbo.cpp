@@ -231,8 +231,25 @@ void ofxMultiFbo::swap()
 }
 
 // -------------------------------------------------
+bool ofxMultiFbo::draw(float x, float y, float w, float h, int index) {
+    
+    // Validate this index
+    if (!validBufferIndex(index)) {
+        ofLogError("ofxMultiFbo") << "Invalid buffer object index: " << index;
+        return false;
+    }
+    
+    // Draw the default (data) texture
+    getTex(index).draw(x, y, w, h);
+    
+    return true;
+}
 
 // -------------------------------------------------
+bool ofxMultiFbo::draw(float x, float y, int index) {
+    
+    return draw(x, y, width(), height(), index);
+}
 
 // -------------------------------------------------
 

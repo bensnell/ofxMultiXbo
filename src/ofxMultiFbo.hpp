@@ -89,6 +89,15 @@ public:
 	{
 		return index >= 0 && index < getNumBuffers();
 	}
+    
+    // ===================================
+    // ========== DRAW METHODS ===========
+    // ===================================
+    
+    // Draw the fbo (at the given index) at the provided coords
+    bool draw(float x, float y, float w, float h, int index=0);
+    bool draw(float x, float y, int index=0);
+    
 
 private:
 
