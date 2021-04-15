@@ -44,6 +44,7 @@ public:
 
 	// Get data texture (pass this to shader)
 	ofTexture& getTex(int index = 0);
+    ofTexture& getTexture(int index = 0) { return getTex(index); };
 
 	// Get PBO info
 	ofTexture* getPboTexture(int index = 0) {
