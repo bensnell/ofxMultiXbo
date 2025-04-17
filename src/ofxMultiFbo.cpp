@@ -159,6 +159,8 @@ bool ofxMultiFbo::begin(int index)
 	// Set a new active draw buffer
 	activeUtilityBuffers.insert(index);
 	utility->setActiveDrawBuffer(index);
+
+	return true;
 }
 
 // -------------------------------------------------

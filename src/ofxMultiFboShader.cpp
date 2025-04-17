@@ -88,6 +88,8 @@ bool ofxMultiFboShader::setTextureNames(vector<string> _textureNames)
 	if (tmpNames.size() != _textureNames.size())
 		return false;
 	textureNames = _textureNames;
+
+	return true;
 }
 
 // -------------------------------------------------
