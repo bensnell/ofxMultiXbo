@@ -32,6 +32,7 @@ public:
 
 	// Get the pixels
 	ofPixels& getPixels();
+	ofFloatPixels& getFloatPixels();
 
 private:
 
@@ -43,13 +44,20 @@ private:
 	int width = -1;
 	int height = -1;
 	int nChannels = -1;
+	
+	// Indicates if the format uses floating point values
+	bool bIsFloat = false;
+	
+	// The GL format information
+	GLint glFormat = -1;
 
 	// These buffers are used to async read the texture
 	ofBufferObject pixelBufferBack, pixelBufferFront;
 
-	// This pixels object contains the CPU-accessible data
-	ofPixels pixels; // needed?
-	unsigned char* p;
+	// These pixels objects contain the CPU-accessible data
+	ofPixels pixels;
+	ofFloatPixels floatPixels;
+	void* p = nullptr;
 
 	ofMutex mtx;
 };
