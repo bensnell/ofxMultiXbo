@@ -10,13 +10,12 @@
 #include "ofMain.h"
 
 // Returns glFormat
-int getFboGLFormat(ofFbo& fbo);
+int getFboGLFormat(ofFbo &fbo);
 
-void fillTextureRGBA(ofTexture& tex, ofColor fillColor, ofFbo& utilityFbo, ofBufferObject& utilityBuffer);
+void fillTextureRGBA(ofTexture &tex, ofColor fillColor, ofFbo &utilityFbo, ofBufferObject &utilityBuffer);
 
 // Apply the modulo operator
 // returns a % b where a can be a wrapped negative value
 int modNeg(int a, int b);
-
 
 #endif /* AppUtils_hpp */

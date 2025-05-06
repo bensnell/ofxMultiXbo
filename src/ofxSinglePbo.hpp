@@ -12,54 +12,53 @@
 // Pixel buffer objects allow information to be read from the GPU to the CPU.
 // This object performs the same function as myFbo.readToPixels(myPixels),
 // but without performance issues.
-class ofxSinglePbo {
-public:
-    
+class ofxSinglePbo
+{
+  public:
     ofxSinglePbo();
     ~ofxSinglePbo();
 
-	// Setup and allocate this object using the settings from this texture
-	bool setup(ofTexture* _texture);
-	
-	// Is this PBO valid?
-	bool isValid();
+    // Setup and allocate this object using the settings from this texture
+    bool setup(ofTexture *_texture);
 
-	// Call update outside of the GL loop.
-	// Use the existing texture to update this PBO
-	void update();
-	void update(ofTexture* _tex); // update with a specific texture (advanced usage)
-	void update(ofBufferObject* _buf);
+    // Is this PBO valid?
+    bool isValid();
 
-	// Get the pixels
-	ofPixels& getPixels();
-	ofFloatPixels& getFloatPixels();
+    // Call update outside of the GL loop.
+    // Use the existing texture to update this PBO
+    void update();
+    void update(ofTexture *_tex); // update with a specific texture (advanced usage)
+    void update(ofBufferObject *_buf);
 
-private:
+    // Get the pixels
+    ofPixels &getPixels();
+    ofFloatPixels &getFloatPixels();
 
-	// Is this PBO valid?
-	bool bValid = false;
+  private:
+    // Is this PBO valid?
+    bool bValid = false;
 
-	// This is the original (GL) object we want to get data from
-	ofTexture* texture;
-	int width = -1;
-	int height = -1;
-	int nChannels = -1;
-	
-	// Indicates if the format uses floating point values
-	bool bIsFloat = false;
-	
-	// The GL format information
-	GLint glFormat = -1;
+    // This is the original (GL) object we want to get data from
+    ofTexture *texture;
+    int width = -1;
+    int height = -1;
+    int nChannels = -1;
 
-	// These buffers are used to async read the texture
-	ofBufferObject pixelBufferBack, pixelBufferFront;
+    // Indicates if the format uses floating point values
+    bool bIsFloat = false;
 
-	// These pixels objects contain the CPU-accessible data
-	ofPixels pixels;
-	ofFloatPixels floatPixels;
-	void* p = nullptr;
+    // The GL format information
+    GLint glFormat = -1;
 
-	ofMutex mtx;
+    // These buffers are used to async read the texture
+    ofBufferObject pixelBufferBack, pixelBufferFront;
+
+    // These pixels objects contain the CPU-accessible data
+    ofPixels pixels;
+    ofFloatPixels floatPixels;
+    void *p = nullptr;
+
+    ofMutex mtx;
 };
 
 #endif /* ofxSinglePbo_hpp */
