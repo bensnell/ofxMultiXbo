@@ -180,6 +180,15 @@ void ofxSinglePbo::update(ofTexture *_tex)
     // - ofxImageSequenceVideo
     // - ofxAnimationAssetManager
     // since they depend on glCompressedTexImage2D, glTexImage2D, etc.
+    // See this page for reference:
+    // https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindBuffer.xhtml
+    // and the paragraph on this page that reads
+    //     "While a non-zero buffer object is bound to the GL_PIXEL_UNPACK_BUFFER target,
+    //		the following commands are affected: glCompressedTexImage1D, glCompressedTexImage2D,
+    //		glCompressedTexImage3D, glCompressedTexSubImage1D, glCompressedTexSubImage2D,
+    //		glCompressedTexSubImage3D, glTexImage1D, glTexImage2D, glTexImage3D, glTexSubImage1D,
+    //		glTexSubImage2D, and glTexSubImage3D. The pointer parameter is interpreted as an
+    //		offset within the buffer object measured in basic machine units."
     pixelBufferFront.unbind(GL_PIXEL_UNPACK_BUFFER);
 
     // swap the front and back buffer so we are always
