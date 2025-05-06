@@ -8,9 +8,9 @@
 #define ofxMultiPbo_hpp
 
 #include "ofMain.h"
+#include "ofxMultiFbo.hpp"
 #include "ofxMultiXboUtils.hpp"
 #include "ofxSinglePbo.hpp"
-#include "ofxMultiFbo.hpp"
 // #include "ofPBO.h" // ?
 
 // A third option would be to use ofxFastFboReader, but it has the same performance
@@ -19,36 +19,33 @@
 
 // Helper for mulitple pbo (used in tandem with MultiFbo)
 // Only to be used with all GL_RGBA MultiFbo's
-class ofxMultiPbo {
-public:
+class ofxMultiPbo
+{
+  public:
+    ofxMultiPbo();
+    ~ofxMultiPbo();
 
-	ofxMultiPbo();
-	~ofxMultiPbo();
+    void setup(ofxMultiFbo *_mf);
 
-	void setup(ofxMultiFbo* _mf);
+    bool isValid() { return bValid; }
 
-	bool isValid() { return bValid; }
+    // ofxSinglePbo& getPbo(int index);
 
-	//ofxSinglePbo& getPbo(int index);
+    void update();
 
-	void update();
+    ofPixels &getPixels(int index);
 
-	ofPixels& getPixels(int index);
+  private:
+    bool bValid = false;
 
-private:
+    ofxMultiFbo *mf = NULL;
 
-	bool bValid = false;
+    // Option 1
+    vector<ofxSinglePbo *> pbos;
+    // Option 2
+    // vector<ofPBO*> pbos;
 
-	ofxMultiFbo* mf = NULL;
-
-	// Option 1
-	vector<ofxSinglePbo*> pbos;
-	// Option 2
-	//vector<ofPBO*> pbos;
-	
-	vector<ofPixels> pixels;
-
+    vector<ofPixels> pixels;
 };
-
 
 #endif /* ofxMultiPbo_hpp */
