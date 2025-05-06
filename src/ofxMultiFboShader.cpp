@@ -18,12 +18,12 @@ ofxMultiFboShader::~ofxMultiFboShader()
 
 // -------------------------------------------------
 bool ofxMultiFboShader::setup(int __width, int __height, vector<GLenum> _glFormats,
-                              vector<ofColor> _initColors, bool _bPboSupport,
+                              vector<ofColor> _initColors,
                               string _shaderPath, vector<string> _textureNames)
 {
     bSetup = false;
 
-    if (!ofxMultiFbo::allocate(__width, __height, _glFormats, _initColors, _bPboSupport))
+    if (!ofxMultiFbo::allocate(__width, __height, _glFormats, _initColors))
     {
         ofLogError("ofxMultiFboShader") << "Could not load ofxMultiFbo.";
         return false;
@@ -47,12 +47,12 @@ bool ofxMultiFboShader::setup(int __width, int __height, vector<GLenum> _glForma
 
 // -------------------------------------------------
 bool ofxMultiFboShader::setup(int __width, int __height, GLenum _glFormat,
-                              int _numBuffers, ofColor _initColor, bool _bPboSupport,
+                              int _numBuffers, ofColor _initColor,
                               string _shaderPath, string _texturePrefix)
 {
     bSetup = false;
 
-    if (!ofxMultiFbo::allocate(__width, __height, _glFormat, _numBuffers, _initColor, _bPboSupport))
+    if (!ofxMultiFbo::allocate(__width, __height, _glFormat, _numBuffers, _initColor))
     {
         ofLogError("ofxMultiFboShader") << "Could not load ofxMultiFbo.";
         return false;

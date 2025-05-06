@@ -24,14 +24,13 @@ class ofxMultiFbo
 
     // Allocate the multitexture
     bool allocate(int __width, int __height, vector<GLenum> _glFormats,
-                  vector<ofColor> _initColors, bool _bPboSupport = false);
+                  vector<ofColor> _initColors);
     bool allocate(int __width, int __height, GLenum _glFormat,
-                  int _numBuffers, ofColor _initColor, bool _bPboSupport = false);
+                  int _numBuffers, ofColor _initColor);
     bool isAllocated() { return bAllocated; }
 
     // Helper methods
     int size() { return getNumBuffers(); }
-    bool hasPboSupport() { return bPboSupport; }
     int width() { return _width; }
     int height() { return _height; }
     GLenum getGlFormat(int index) { return glFormats[index]; }
@@ -46,15 +45,14 @@ class ofxMultiFbo
     ofTexture &getTex(int index = 0);
     ofTexture &getTexture(int index = 0) { return getTex(index); };
 
-    // Get PBO info
-    ofTexture *getPboTexture(int index = 0)
-    {
-        return bPboSupport ? pboTextures[index] : NULL;
-    }
-    ofBufferObject *getPboBuffer(int index = 0)
-    {
-        return bPboSupport ? pboBuffers[index] : NULL;
-    }
+    // Get vector of all textures from the data FBO (most recently rendered frame)
+    vector<ofTexture *> getTextures();
+
+    // Get vector of all textures from the data FBO (most recently rendered frame)
+    vector<ofTexture *> getDataTextures();
+
+    // Get vector of all textures from the utility FBO (currently being rendered to or previous frame)
+    vector<ofTexture *> getUtilityTextures();
 
     // ===================================
     // ======== ADVANCED METHODS =========
@@ -68,7 +66,6 @@ class ofxMultiFbo
     bool end(int index);
 
     // Manually swap buffers.
-    // Note: Advanced usage already, since this is
     void swap();
 
     // ===================================
@@ -119,11 +116,6 @@ class ofxMultiFbo
     int _height;
 
     bool bAllocated = false;
-
-    bool bPboSupport = false;
-    vector<ofBufferObject *> pboBuffers; // utility
-    vector<ofTexture *> pboTextures;     // for pbo
-    void updatePboTextures();
 };
 
 #endif /* ofxMultiFbo_hpp */

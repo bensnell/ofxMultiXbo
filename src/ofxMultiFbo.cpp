@@ -18,7 +18,7 @@ ofxMultiFbo::~ofxMultiFbo()
 
 // -------------------------------------------------
 bool ofxMultiFbo::allocate(int __width, int __height, vector<GLenum> _glFormats,
-                           vector<ofColor> _initColors, bool _bPboSupport)
+                           vector<ofColor> _initColors)
 {
     if (_glFormats.size() >= 8 || _initColors.size() >= 8)
     {
@@ -38,7 +38,6 @@ bool ofxMultiFbo::allocate(int __width, int __height, vector<GLenum> _glFormats,
     glFormats = _glFormats;
     _width = __width;
     _height = __height;
-    bPboSupport = _bPboSupport;
 
     // Create this many textures
     ofFboSettings settings;
@@ -75,30 +74,8 @@ bool ofxMultiFbo::allocate(int __width, int __height, vector<GLenum> _glFormats,
         B.end();
     }
 
-    if (bPboSupport)
-    {
-        // Also allocate a vector of textures for the pbo to copy (without locking onto thr fbo renderer)
-        for (int i = 0; i < glFormats.size(); i++)
-        {
-            int glFormat = glFormats[i];
-            int glType = ofGetGLTypeFromInternal(glFormat);
-            int numChannels = ofGetNumChannelsFromGLFormat(glFormat);
-            int numBytesPerChannel = ofGetBytesPerChannelFromGLType(glType);
-            int numBytes = numChannels * numBytesPerChannel;
-
-            ofBufferObject *buf = new ofBufferObject();
-            buf->allocate(width() * height() * numBytes, GL_DYNAMIC_COPY);
-            pboBuffers.push_back(buf);
-
-            ofTexture *tex = new ofTexture();
-            tex->allocate(A.getTexture(i).getWidth(), A.getTexture(i).getHeight(), glFormat);
-            pboTextures.push_back(tex);
-        }
-    }
-
     data = &A;
     utility = &B;
-    updatePboTextures();
 
     bAllocated = true;
 
@@ -106,37 +83,46 @@ bool ofxMultiFbo::allocate(int __width, int __height, vector<GLenum> _glFormats,
 }
 
 // -------------------------------------------------
-bool ofxMultiFbo::allocate(int __width, int __height, GLenum _glFormat, int _numBuffers, ofColor _initColor, bool _bPboSupport)
+bool ofxMultiFbo::allocate(int __width, int __height, GLenum _glFormat, int _numBuffers, ofColor _initColor)
 {
-
     vector<GLenum> _glFormats;
     _glFormats.resize(_numBuffers, _glFormat);
     vector<ofColor> _initColors;
     _initColors.resize(_numBuffers, _initColor);
-    return allocate(__width, __height, _glFormats, _initColors, _bPboSupport);
+    return allocate(__width, __height, _glFormats, _initColors);
 }
 
 // -------------------------------------------------
-void ofxMultiFbo::updatePboTextures()
+vector<ofTexture *> ofxMultiFbo::getTextures()
 {
-    if (!bPboSupport)
-        return;
+    return getDataTextures();
+}
 
-    for (int i = 0; i < pboTextures.size(); i++)
+// -------------------------------------------------
+vector<ofTexture *> ofxMultiFbo::getDataTextures()
+{
+    vector<ofTexture *> textures;
+    for (int i = 0; i < getNumBuffers(); i++)
     {
-
-        // copy the data
-        getTex(i).copyTo(*pboBuffers[i]);
-
-        // load into new texture
-        pboTextures[i]->loadData(*pboBuffers[i], glFormats[i], ofGetGLTypeFromInternal(glFormats[i]));
+        textures.push_back(&data->getTexture(i));
     }
+    return textures;
+}
+
+// -------------------------------------------------
+vector<ofTexture *> ofxMultiFbo::getUtilityTextures()
+{
+    vector<ofTexture *> textures;
+    for (int i = 0; i < getNumBuffers(); i++)
+    {
+        textures.push_back(&utility->getTexture(i));
+    }
+    return textures;
 }
 
 // -------------------------------------------------
 bool ofxMultiFbo::begin()
 {
-
     if (activeUtilityBuffers.size() > 0)
     {
         ofLogWarning("ofxMultiFbo") << "Fbo already began drawing. Cannot call begin() again.";
@@ -196,14 +182,12 @@ bool ofxMultiFbo::isUtilityBufferActive()
 // -------------------------------------------------
 ofTexture &ofxMultiFbo::getTex(int index)
 {
-
     return data->getTexture(index);
 }
 
 // -------------------------------------------------
 bool ofxMultiFbo::end(bool swapBuffers)
 {
-
     // Only end if we're drawing to something (or always end ?)
     // if (isUtilityBufferActive())
     {
@@ -252,13 +236,11 @@ bool ofxMultiFbo::end(int index)
 void ofxMultiFbo::swap()
 {
     std::swap(data, utility);
-    updatePboTextures();
 }
 
 // -------------------------------------------------
 bool ofxMultiFbo::draw(float x, float y, float w, float h, int index)
 {
-
     // Validate this index
     if (!validBufferIndex(index))
     {
@@ -275,7 +257,6 @@ bool ofxMultiFbo::draw(float x, float y, float w, float h, int index)
 // -------------------------------------------------
 bool ofxMultiFbo::draw(float x, float y, int index)
 {
-
     return draw(x, y, width(), height(), index);
 }
 
