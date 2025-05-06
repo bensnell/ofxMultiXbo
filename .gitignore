@@ -93,3 +93,6 @@ ipch/
 /assets/
 assets/
 
+**/bin/*
+!**/bin/data/
+**/obj/*

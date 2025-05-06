@@ -1,1 +1,1 @@
-../../../ExternalAddons/ofxMultiXbo
+../../ofxMultiXbo
