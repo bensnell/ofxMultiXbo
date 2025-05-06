@@ -97,6 +97,9 @@ void ofxMultiFboShader::begin(bool bClear, ofColor clearColor)
     if (!isSetup())
         return;
 
+    // Reset texture location counter
+    texLocationCounter = 0;
+
     // Begin the fbo
     ofxMultiFbo::begin();
 
