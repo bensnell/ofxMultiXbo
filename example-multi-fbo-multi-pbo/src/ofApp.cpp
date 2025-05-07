@@ -24,22 +24,6 @@ void ofApp::update()
     // Animate phase
     phase += 0.01;
 
-    // Update PBO - this automatically gets the current DATA_FBO textures
-    pbo.update();
-
-    // Get pixel data from each buffer and update the display images
-    for (int i = 0; i < 3; i++)
-    {
-        displayImages[i].setFromPixels(pbo.getPixels(i));
-        displayImages[i].update();
-    }
-}
-
-//--------------------------------------------------------------
-void ofApp::draw()
-{
-    ofBackground(40);
-
     // Draw different content to each buffer
     for (int i = 0; i < 3; i++)
     {
@@ -59,6 +43,22 @@ void ofApp::draw()
 
     // Now swap the FBO buffers to make the new content available
     fbo.swap();
+
+    // Update PBO - this automatically gets the current DATA_FBO textures
+    pbo.update();
+
+    // Get pixel data from each buffer and update the display images
+    for (int i = 0; i < 3; i++)
+    {
+        displayImages[i].setFromPixels(pbo.getPixels(i));
+        displayImages[i].update();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::draw()
+{
+    ofBackground(40);
 
     // Display our content
 

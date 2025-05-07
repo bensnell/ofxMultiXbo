@@ -4,7 +4,7 @@ void ofApp::setup()
 {
 
     // Setup the fbo shader (renderer)
-    renderer.setup(100, 100, GL_RGBA, 5, ofColor(255), false, "shaders/myShader", "inTex");
+    renderer.setup(100, 100, GL_RGBA, 5, ofColor(255), "shaders/myShader", "inTex");
 
     // Initialize fbos with whatever information you need
     ofSetCircleResolution(32);
