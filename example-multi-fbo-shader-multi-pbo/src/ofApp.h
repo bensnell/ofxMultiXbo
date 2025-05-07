@@ -3,6 +3,9 @@
 #include "ofMain.h"
 #include "ofxMultiXbo.hpp"
 
+#define USE_FLOATS 1
+#define NUM_BUFFERS 5 // The shader will need to be adjusted if this exceeds 5
+
 class ofApp : public ofBaseApp
 {
 

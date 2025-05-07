@@ -4,12 +4,12 @@ void ofApp::setup()
 {
 
     // Setup the fbo shader (renderer)
-    renderer.setup(100, 100, GL_RGBA, 5, ofColor(255), "shaders/myShader", "inTex");
+    renderer.setup(100, 100, USE_FLOATS ? GL_RGBA32F : GL_RGBA, NUM_BUFFERS, ofColor(255), "shaders/myShader", "inTex");
 
     pbo.setup(&renderer);
 
     // Allocate images for display
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < NUM_BUFFERS; i++)
     {
         displayImages[i].allocate(100, 100, OF_IMAGE_COLOR_ALPHA);
     }
@@ -48,9 +48,16 @@ void ofApp::update()
     pbo.update();
 
     // Get pixel data from each buffer and update the display images
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < NUM_BUFFERS; i++)
     {
-        displayImages[i].setFromPixels(pbo.getPixels(i));
+        if (USE_FLOATS)
+        {
+            displayImages[i].setFromPixels(pbo.getFloatPixels(i));
+        }
+        else
+        {
+            displayImages[i].setFromPixels(pbo.getPixels(i));
+        }
         displayImages[i].update();
     }
 }
@@ -62,40 +69,14 @@ void ofApp::draw()
     const int xOffset = 120;
     const int imgSize = 100;
 
-    // First texture should be all red
-    renderer.getTex(0).draw(0, 0, imgSize, imgSize);
-    displayImages[0].draw(0, yOffset, imgSize, imgSize);
-    ofSetColor(255);
-    ofDrawBitmapString("FBO 0", 0, yOffset - 5);
-    ofDrawBitmapString("PBO 0", 0, yOffset + imgSize + 15);
-
-    // Second texture should be a red/yellow/black gradient
-    renderer.getTex(1).draw(xOffset, 0, imgSize, imgSize);
-    displayImages[1].draw(xOffset, yOffset, imgSize, imgSize);
-    ofSetColor(255);
-    ofDrawBitmapString("FBO 1", xOffset, yOffset - 5);
-    ofDrawBitmapString("PBO 1", xOffset, yOffset + imgSize + 15);
-
-    // Third texture is a blue circle
-    renderer.getTex(2).draw(xOffset * 2, 0, imgSize, imgSize);
-    displayImages[2].draw(xOffset * 2, yOffset, imgSize, imgSize);
-    ofSetColor(255);
-    ofDrawBitmapString("FBO 2", xOffset * 2, yOffset - 5);
-    ofDrawBitmapString("PBO 2", xOffset * 2, yOffset + imgSize + 15);
-
-    // Fourth texture is a gradient circle on transparent background
-    renderer.getTex(3).draw(xOffset * 3, 0, imgSize, imgSize);
-    displayImages[3].draw(xOffset * 3, yOffset, imgSize, imgSize);
-    ofSetColor(255);
-    ofDrawBitmapString("FBO 3", xOffset * 3, yOffset - 5);
-    ofDrawBitmapString("PBO 3", xOffset * 3, yOffset + imgSize + 15);
-
-    // Fifth texture is an animated gradient circle on transparent background
-    renderer.getTex(4).draw(xOffset * 4, 0, imgSize, imgSize);
-    displayImages[4].draw(xOffset * 4, yOffset, imgSize, imgSize);
-    ofSetColor(255);
-    ofDrawBitmapString("FBO 4", xOffset * 4, yOffset - 5);
-    ofDrawBitmapString("PBO 4", xOffset * 4, yOffset + imgSize + 15);
+    for (int i = 0; i < NUM_BUFFERS; i++)
+    {
+        ofSetColor(255);
+        renderer.getTex(i).draw(xOffset * i, 0, imgSize, imgSize);
+        displayImages[i].draw(xOffset * i, yOffset, imgSize, imgSize);
+        ofDrawBitmapString("FBO " + ofToString(i), xOffset * i, yOffset - 5);
+        ofDrawBitmapString("PBO " + ofToString(i), xOffset * i, yOffset + imgSize + 15);
+    }
 }
 
 void ofApp::keyPressed(int key)
